@@ -530,7 +530,7 @@ public class EasyOpenCV_Test extends LinearOpMode
         }
 
         /*
-         * Call this from the OpMode thread to obtain the latest analysis
+         * Call this Pipeline from the OpMode thread to obtain the latest analysis
          */
         public ElementPosition getAnalysis()
         {
