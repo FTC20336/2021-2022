@@ -75,7 +75,6 @@ public class EasyOpenCV_Test extends LinearOpMode
          * Specify the image processing pipeline we wish to invoke upon receipt
          * of a frame from the camera. Note that switching pipelines on-the-fly
          * (while a streaming session is in flight) *IS* supported.
-         * Currently a test pipeline
          */
         webcam.setPipeline(new CustomElementPositionPipeline());
 
@@ -285,8 +284,8 @@ public class EasyOpenCV_Test extends LinearOpMode
         /*
          * Some color constants
          */
-        static final Scalar BLUE = new Scalar(0, 0, 255);
-        static final Scalar GREEN = new Scalar(0, 255, 0);
+        static final Scalar ORANGE = new Scalar(255, 100, 0);
+        static final Scalar PINK = new Scalar(250, 240, 249);
 
         /*
          * The core values which define the location and size of the sample regions
@@ -440,7 +439,7 @@ public class EasyOpenCV_Test extends LinearOpMode
                     input, // Buffer to draw on
                     region1_pointA, // First point which defines the rectangle
                     region1_pointB, // Second point which defines the rectangle
-                    BLUE, // The color the rectangle is drawn in
+                    ORANGE, // The color the rectangle is drawn in
                     2); // Thickness of the rectangle lines
 
             /*
@@ -451,7 +450,7 @@ public class EasyOpenCV_Test extends LinearOpMode
                     input, // Buffer to draw on
                     region2_pointA, // First point which defines the rectangle
                     region2_pointB, // Second point which defines the rectangle
-                    BLUE, // The color the rectangle is drawn in
+                    ORANGE, // The color the rectangle is drawn in
                     2); // Thickness of the rectangle lines
 
             /*
@@ -462,15 +461,15 @@ public class EasyOpenCV_Test extends LinearOpMode
                     input, // Buffer to draw on
                     region3_pointA, // First point which defines the rectangle
                     region3_pointB, // Second point which defines the rectangle
-                    BLUE, // The color the rectangle is drawn in
+                    ORANGE, // The color the rectangle is drawn in
                     2); // Thickness of the rectangle lines
 
 
             /*
              * Find the max of the 3 averages
              */
-            int maxOneTwo = Math.max(avg1, avg2);
-            int max = Math.max(maxOneTwo, avg3);
+            int maxOneTwo = Math.min(avg1, avg2);
+            int max = Math.min(maxOneTwo, avg3);
 
             /*
              * Now that we found the max, we actually need to go and
@@ -488,7 +487,7 @@ public class EasyOpenCV_Test extends LinearOpMode
                         input, // Buffer to draw on
                         region1_pointA, // First point which defines the rectangle
                         region1_pointB, // Second point which defines the rectangle
-                        GREEN, // The color the rectangle is drawn in
+                        PINK, // The color the rectangle is drawn in
                         -1); // Negative thickness means solid fill
             }
             else if(max == avg2) // Was it from region 2?
@@ -503,7 +502,7 @@ public class EasyOpenCV_Test extends LinearOpMode
                         input, // Buffer to draw on
                         region2_pointA, // First point which defines the rectangle
                         region2_pointB, // Second point which defines the rectangle
-                        GREEN, // The color the rectangle is drawn in
+                        PINK, // The color the rectangle is drawn in
                         -1); // Negative thickness means solid fill
             }
             else if(max == avg3) // Was it from region 3?
@@ -518,7 +517,7 @@ public class EasyOpenCV_Test extends LinearOpMode
                         input, // Buffer to draw on
                         region3_pointA, // First point which defines the rectangle
                         region3_pointB, // Second point which defines the rectangle
-                        GREEN, // The color the rectangle is drawn in
+                        PINK, // The color the rectangle is drawn in
                         -1); // Negative thickness means solid fill
             }
 
