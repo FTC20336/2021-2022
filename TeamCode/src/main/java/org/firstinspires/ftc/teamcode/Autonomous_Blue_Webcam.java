@@ -380,9 +380,27 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
         telemetry.update();
       }
     */
-            ArmJoint.setTargetPosition((int)(50* COUNT_PER_DEGREE_ARMJOINT));
-            ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            ArmJoint.setVelocity(45*COUNT_PER_DEGREE_ARMJOINT);
+            //Use variable Element_Position to determine arm height
+            //MEASURE DISTANCES
+            if (Element_Position == 1) {
+                //Lower Level
+                ArmJoint.setTargetPosition((int) (50 * COUNT_PER_DEGREE_ARMJOINT));
+                ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                ArmJoint.setVelocity(45 * COUNT_PER_DEGREE_ARMJOINT);
+            }
+            if (Element_Position == 2) {
+                //Middle Level
+                ArmJoint.setTargetPosition((int) (75 * COUNT_PER_DEGREE_ARMJOINT));
+                ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                ArmJoint.setVelocity(45 * COUNT_PER_DEGREE_ARMJOINT);
+            }
+            if (Element_Position == 3) {
+                //Top Level
+                ArmJoint.setTargetPosition((int) (100 * COUNT_PER_DEGREE_ARMJOINT));
+                ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                ArmJoint.setVelocity(45 * COUNT_PER_DEGREE_ARMJOINT);
+            }
+
 
             // If we want to wait until the armjoint is done.. uncomment this
      /*
@@ -392,7 +410,7 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
       }
       */
 
-
+/*uncomment this
             move(10.5, 15, "Robot go forward");
             //Position 1
             strafe(28, 90, 15,"");
@@ -410,7 +428,7 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
             move(-6, 20, "roboreverse");
             rotate(90, 45, "TARGET LOCKED"); //sleep(2000);
             move(60,999,"Robot go WAREHOUSE");
-
+*/
             // To Roll a Duck.. Uncomment this
    /*
       move(-4, 20, "roboreverse");
