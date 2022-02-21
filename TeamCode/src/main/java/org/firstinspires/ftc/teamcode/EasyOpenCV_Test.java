@@ -109,7 +109,7 @@ public class EasyOpenCV_Test extends LinearOpMode
                  * For a rear facing camera or a webcam, rotation is defined assuming the camera is facing
                  * away from the user.
                  */
-                webcam.startStreaming(1280, 720, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(1280, 960, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
@@ -293,9 +293,9 @@ public class EasyOpenCV_Test extends LinearOpMode
         static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(109,98);
         static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(181,98);
         static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(253,98);
-        static final Point REGION1_CENTER_ANCHOR_POINT = new Point(109,0);
-        static final Point REGION2_CENTER_ANCHOR_POINT = new Point(181,0);
-        static final Point REGION3_CENTER_ANCHOR_POINT = new Point(253,0);
+        static final Point REGION1_CENTER_ANCHOR_POINT = new Point(340,480);
+        static final Point REGION2_CENTER_ANCHOR_POINT = new Point(640,480);
+        static final Point REGION3_CENTER_ANCHOR_POINT = new Point(940,480);
         static final int REGION_WIDTH = 20;
         static final int REGION_HEIGHT = 20;
 
@@ -317,23 +317,23 @@ public class EasyOpenCV_Test extends LinearOpMode
          *
          */
         Point region1_pointA = new Point(
-                REGION1_TOPLEFT_ANCHOR_POINT.x,
-                REGION1_TOPLEFT_ANCHOR_POINT.y);
+                REGION1_CENTER_ANCHOR_POINT.x,
+                REGION1_CENTER_ANCHOR_POINT.y);
         Point region1_pointB = new Point(
-                REGION1_TOPLEFT_ANCHOR_POINT.x + REGION_WIDTH,
-                REGION1_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT);
+                REGION1_CENTER_ANCHOR_POINT.x + REGION_WIDTH,
+                REGION1_CENTER_ANCHOR_POINT.y + REGION_HEIGHT);
         Point region2_pointA = new Point(
-                REGION2_TOPLEFT_ANCHOR_POINT.x,
-                REGION2_TOPLEFT_ANCHOR_POINT.y);
+                REGION2_CENTER_ANCHOR_POINT.x,
+                REGION2_CENTER_ANCHOR_POINT.y);
         Point region2_pointB = new Point(
-                REGION2_TOPLEFT_ANCHOR_POINT.x + REGION_WIDTH,
-                REGION2_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT);
+                REGION2_CENTER_ANCHOR_POINT.x + REGION_WIDTH,
+                REGION2_CENTER_ANCHOR_POINT.y + REGION_HEIGHT);
         Point region3_pointA = new Point(
-                REGION3_TOPLEFT_ANCHOR_POINT.x,
-                REGION3_TOPLEFT_ANCHOR_POINT.y);
+                REGION3_CENTER_ANCHOR_POINT.x,
+                REGION3_CENTER_ANCHOR_POINT.y);
         Point region3_pointB = new Point(
-                REGION3_TOPLEFT_ANCHOR_POINT.x + REGION_WIDTH,
-                REGION3_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT);
+                REGION3_CENTER_ANCHOR_POINT.x + REGION_WIDTH,
+                REGION3_CENTER_ANCHOR_POINT.y + REGION_HEIGHT);
 
         /*
          * Working variables
