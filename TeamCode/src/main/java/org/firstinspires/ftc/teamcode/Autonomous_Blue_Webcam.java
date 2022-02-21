@@ -250,7 +250,7 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
          * of a frame from the camera. Note that switching pipelines on-the-fly
          * (while a streaming session is in flight) *IS* supported.
          */
-        webcam.setPipeline(new EasyOpenCV_Test.CustomElementPositionPipeline());
+        webcam.setPipeline(new CustomElementPositionPipeline());
 
         /*
          * Open the connection to the camera device. New in v1.4.0 is the ability
@@ -308,12 +308,12 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
             /*
              * Send some stats to the telemetry
              */
-            telemetry.addData("Frame Count", webcam.getFrameCount());
+            /*telemetry.addData("Frame Count", webcam.getFrameCount());
             telemetry.addData("FPS", String.format("%.2f", webcam.getFps()));
             telemetry.addData("Total frame time ms", webcam.getTotalFrameTimeMs());
             telemetry.addData("Pipeline time ms", webcam.getPipelineTimeMs());
             telemetry.addData("Overhead time ms", webcam.getOverheadTimeMs());
-            telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
+            telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());*/
             if (Element_Position == 1) {
                 telemetry.addData("Element Position", "Left");
             }
@@ -323,6 +323,7 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
             if (Element_Position == 3) {
                 telemetry.addData("Element Position", "Right");
             }
+            telemetry.addData("ArmJointTargetPos", ArmJoint.getTargetPosition());
             telemetry.update();
 
             /*
