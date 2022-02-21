@@ -285,7 +285,7 @@ public class EasyOpenCV_Test extends LinearOpMode
          * Some color constants
          */
         static final Scalar ORANGE = new Scalar(255, 100, 0);
-        static final Scalar PINK = new Scalar(250, 240, 249);
+        static final Scalar GREEN = new Scalar(0, 255, 0);
 
         /*
          * The core values which define the location and size of the sample regions
@@ -487,7 +487,7 @@ public class EasyOpenCV_Test extends LinearOpMode
                         input, // Buffer to draw on
                         region1_pointA, // First point which defines the rectangle
                         region1_pointB, // Second point which defines the rectangle
-                        PINK, // The color the rectangle is drawn in
+                        GREEN, // The color the rectangle is drawn in
                         -1); // Negative thickness means solid fill
             }
             else if(max == avg2) // Was it from region 2?
@@ -502,7 +502,7 @@ public class EasyOpenCV_Test extends LinearOpMode
                         input, // Buffer to draw on
                         region2_pointA, // First point which defines the rectangle
                         region2_pointB, // Second point which defines the rectangle
-                        PINK, // The color the rectangle is drawn in
+                        GREEN, // The color the rectangle is drawn in
                         -1); // Negative thickness means solid fill
             }
             else if(max == avg3) // Was it from region 3?
@@ -517,7 +517,7 @@ public class EasyOpenCV_Test extends LinearOpMode
                         input, // Buffer to draw on
                         region3_pointA, // First point which defines the rectangle
                         region3_pointB, // Second point which defines the rectangle
-                        PINK, // The color the rectangle is drawn in
+                        GREEN, // The color the rectangle is drawn in
                         -1); // Negative thickness means solid fill
             }
 
@@ -530,7 +530,7 @@ public class EasyOpenCV_Test extends LinearOpMode
         }
 
         /*
-         * Call this Pipeline from the OpMode thread to obtain the latest analysis
+         * Call this from the OpMode thread to obtain the latest analysis
          */
         public ElementPosition getAnalysis()
         {
