@@ -214,7 +214,7 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
         frontLeftMotor = hardwareMap.get(DcMotorEx.class, "frontLeftMotor");
         frontRightWheel = hardwareMap.get(DcMotorEx.class, "frontRightWheel");
         ArmJoint = hardwareMap.get(DcMotorEx.class, "arm joint");
-        Arm = hardwareMap.get(DcMotorEx.class, "Arm");
+        Arm = hardwareMap.get(DcMotorEx.class, "arm");
         TopWheel = hardwareMap.get(DcMotorEx.class, "topwheelmotor");
         Claw = hardwareMap.get(CRServo.class, "claw");
 
