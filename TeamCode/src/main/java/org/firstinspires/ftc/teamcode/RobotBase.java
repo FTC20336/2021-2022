@@ -1,37 +1,32 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-
+import com.qualcomm.robotcore.robot.Robot;
 
 
 public class RobotBase {
 
-//May have to make these public
-  private DcMotorEx MotorRight;
-  private DcMotorEx MotorLeft;
-  private DcMotorEx frontRightWheel;
-  private DcMotorEx frontLeftMotor;
-  private DcMotorEx Arm;
-  private DcMotorEx ArmJoint;
-  private CRServo Claw;
-  private DcMotorEx TopWheel;
+  //May have to make these public
+  public DcMotorEx MotorRight;
+  public DcMotorEx MotorLeft;
+  public DcMotorEx frontRightWheel;
+  public DcMotorEx frontLeftMotor;
+  public DcMotorEx TopWheel;
+  RobotArm BeepArm= new RobotArm();
 
-  static double PI = 3.141592;
-  static double CIRCUMFERENCE = 76 / 25.4 * PI;
-  static double GEAR_3_RATIO = 2.89;
-  static double GEAR_4_RATIO = 3.61;
-  static double GEAR_5_RATIO = 5.23;
-  static double COUNTS_PER_IN_DRIVE = 28 * GEAR_3_RATIO * GEAR_4_RATIO * GEAR_3_RATIO / CIRCUMFERENCE;
+  static private double PI = 3.141592;
+  static private double CIRCUMFERENCE = 76 / 25.4 * PI;
+  static private double GEAR_3_RATIO = 2.89;
+  static private double GEAR_4_RATIO = 3.61;
+  static private double GEAR_5_RATIO = 5.23;
+  static private double COUNTS_PER_IN_DRIVE = 28 * GEAR_3_RATIO * GEAR_4_RATIO * GEAR_3_RATIO / CIRCUMFERENCE;
 
-
-  static double COUNT_PER_DEGREE_ARM = 28 * GEAR_3_RATIO * GEAR_4_RATIO * GEAR_5_RATIO * (125.0 / 30.0) * (90.0 / 45.0) / 360;
-  static double COUNT_PER_DEGREE_ARMJOINT = 28 * GEAR_3_RATIO * GEAR_4_RATIO * GEAR_5_RATIO / 360;
-
-  static double COUNT_PER_360_ROTATE = 6300;
-  static double COUNT_PER_360_ROTATE_SPEED = 25.5;
+  // How Many Encoder Tick for a 360 turn with all wheel turning
+  static private double COUNT_PER_360_ROTATE = 6300;
+  // How Many Encoder Tick per second for 1 turn in 1 second with all wheel turning
+  static private double COUNT_PER_360_ROTATE_SPEED = 25.5;
 
   // Local OpMode members
   HardwareMap hwMap = null;
@@ -42,6 +37,23 @@ public class RobotBase {
 
   }
 
+  public void DuckWheelRed(){
+    DuckWheel(-.5);
+  }
+
+  public void DuckWheelBlue(){
+    DuckWheel(.5);
+  }
+
+  // Direction.. -1 Spins Wheel for Red Position
+//              1 Spins Wheel for Blue Position
+  private void DuckWheel(double Direction){
+    TopWheel.setPower (Direction);
+  }
+
+  public void DuckWheelStop(){
+    TopWheel.setPower (0);
+  }
 
   // Distance in inches
   // Speed in inches/sec
@@ -117,7 +129,7 @@ public class RobotBase {
   }
 
 
-  public void strafe2(double distance, double angle, double speed, String status) {
+  public void strafe(double distance, double angle, double speed, String status) {
 
 
     MotorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -130,7 +142,7 @@ public class RobotBase {
     double dy = Math.cos(angle * PI / 180) * distance;
     double dx = Math.sin(angle * PI / 180) * distance;
 
-    MotorRight.setTargetPosition((int) ((dy + dx) * COUNTS_PER_IN_DRIVE)); // Set Velocity is in Ticks per Secon
+    MotorRight.setTargetPosition((int) ((dy + dx) * COUNTS_PER_IN_DRIVE)); // Set Velocity is in Ticks per Second
     frontLeftMotor.setTargetPosition((int) ((dy + dx) * COUNTS_PER_IN_DRIVE));
     frontRightWheel.setTargetPosition((int) ((dy - dx) * COUNTS_PER_IN_DRIVE));
     MotorLeft.setTargetPosition((int) ((dy - dx) * COUNTS_PER_IN_DRIVE));
@@ -140,7 +152,7 @@ public class RobotBase {
     frontRightWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     MotorLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-    MotorRight.setVelocity((y + x) * COUNTS_PER_IN_DRIVE); // Set Velocity is in Ticks per Secon
+    MotorRight.setVelocity((y + x) * COUNTS_PER_IN_DRIVE); // Set Velocity is in Ticks per Second
     frontLeftMotor.setVelocity((y + x) * COUNTS_PER_IN_DRIVE);
     frontRightWheel.setVelocity((y - x) * COUNTS_PER_IN_DRIVE);
     MotorLeft.setVelocity((y - x) * COUNTS_PER_IN_DRIVE);
@@ -173,22 +185,22 @@ public class RobotBase {
     MotorRight = hwMap.get(DcMotorEx.class, "MotorRight");
     frontLeftMotor = hwMap.get(DcMotorEx.class, "frontLeftMotor");
     frontRightWheel = hwMap.get(DcMotorEx.class, "frontRightWheel");
-    ArmJoint = hwMap.get(DcMotorEx.class, "arm joint");
-    Arm = hwMap.get(DcMotorEx.class, "Arm");
+//    ArmJoint = hwMap.get(DcMotorEx.class, "arm joint");
+    //   Arm = hwMap.get(DcMotorEx.class, "Arm");
     TopWheel = hwMap.get(DcMotorEx.class, "topwheelmotor");
-    Claw = hwMap.get(CRServo.class, "claw");
+    //Claw = hwMap.get(CRServo.class, "claw");
 
     // Reverse one of the drive motors.
     frontRightWheel.setDirection(DcMotorEx.Direction.REVERSE);
-    ArmJoint.setDirection(DcMotorEx.Direction.REVERSE);
+//    ArmJoint.setDirection(DcMotorEx.Direction.REVERSE);
 
 
     MotorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     MotorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     frontLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     frontRightWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    Arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    ArmJoint.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    //   Arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//    ArmJoint.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
   }
