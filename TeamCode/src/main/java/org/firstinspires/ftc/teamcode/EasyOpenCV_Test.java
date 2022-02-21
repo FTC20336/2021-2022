@@ -285,7 +285,7 @@ public class EasyOpenCV_Test extends LinearOpMode
          * Some color constants
          */
         static final Scalar ORANGE = new Scalar(255, 100, 0);
-        static final Scalar PINK = new Scalar(255, 100, 175);
+        static final Scalar PINK = new Scalar(250, 240, 249);
 
         /*
          * The core values which define the location and size of the sample regions
