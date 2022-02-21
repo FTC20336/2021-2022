@@ -47,10 +47,12 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
 
+
 @TeleOp(name = "EasyOpenCV")
 public class EasyOpenCV_Test extends LinearOpMode
 {
     OpenCvWebcam webcam;
+    static int Element_Position;
 
     @Override
     public void runOpMode()
@@ -140,6 +142,15 @@ public class EasyOpenCV_Test extends LinearOpMode
             telemetry.addData("Pipeline time ms", webcam.getPipelineTimeMs());
             telemetry.addData("Overhead time ms", webcam.getOverheadTimeMs());
             telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());
+            if (Element_Position == 1) {
+                telemetry.addData("Element Position", "Left");
+            }
+            if (Element_Position == 2) {
+                telemetry.addData("Element Position", "Center");
+            }
+            if (Element_Position == 3) {
+                telemetry.addData("Element Position", "Right");
+            }
             telemetry.update();
 
             /*
@@ -481,6 +492,7 @@ public class EasyOpenCV_Test extends LinearOpMode
             if(max == avg1) // Was it from region 1?
             {
                 position = ElementPosition.LEFT; // Record our analysis
+                Element_Position = 1;
 
                 /*
                  * Draw a solid rectangle on top of the chosen region.
@@ -496,7 +508,7 @@ public class EasyOpenCV_Test extends LinearOpMode
             else if(max == avg2) // Was it from region 2?
             {
                 position = ElementPosition.CENTER; // Record our analysis
-
+                Element_Position = 2;
                 /*
                  * Draws a solid rectangle on top of the chosen region.
                  * Simply a visual aid. Serves no functional purpose.
@@ -511,6 +523,7 @@ public class EasyOpenCV_Test extends LinearOpMode
             else if(max == avg3) // Was it from region 3?
             {
                 position = ElementPosition.RIGHT; // Record our analysis
+                Element_Position = 3;
 
                 /*
                  * Draw a solid rectangle on top of the chosen region.
@@ -539,5 +552,7 @@ public class EasyOpenCV_Test extends LinearOpMode
         {
             return position;
         }
+
+
     }
 }
