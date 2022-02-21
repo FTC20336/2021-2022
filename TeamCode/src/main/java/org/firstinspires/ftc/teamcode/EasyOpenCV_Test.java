@@ -293,11 +293,11 @@ public class EasyOpenCV_Test extends LinearOpMode
         static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(109,98);
         static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(181,98);
         static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(253,98);
-        static final Point REGION1_CENTER_ANCHOR_POINT = new Point(390,480);
-        static final Point REGION2_CENTER_ANCHOR_POINT = new Point(640,480);
-        static final Point REGION3_CENTER_ANCHOR_POINT = new Point(890,480);
-        static final int REGION_WIDTH = 40;
-        static final int REGION_HEIGHT = 40;
+        static final Point REGION1_CENTER_ANCHOR_POINT = new Point(360,450);
+        static final Point REGION2_CENTER_ANCHOR_POINT = new Point(610,450);
+        static final Point REGION3_CENTER_ANCHOR_POINT = new Point(860,450);
+        static final int REGION_WIDTH = 60;
+        static final int REGION_HEIGHT = 60;
 
         /*
          * Points which actually define the sample region rectangles, derived from above values
