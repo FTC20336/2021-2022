@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.robot.Robot;
-
 
 public class RobotBase {
 
@@ -44,6 +42,7 @@ public class RobotBase {
   public void DuckWheelBlue(){
     DuckWheel(.5);
   }
+
 
   // Direction.. -1 Spins Wheel for Red Position
 //              1 Spins Wheel for Blue Position
@@ -179,28 +178,23 @@ public class RobotBase {
     hwMap = ahwMap;
 
     // Define and Initialize Motors.  Assign Names that match the setup on the DriverHub
-//    leftMotor   = hwMap.dcMotor.get("left_drive");
 
     MotorLeft = hwMap.get(DcMotorEx.class, "MotorLeft");
     MotorRight = hwMap.get(DcMotorEx.class, "MotorRight");
     frontLeftMotor = hwMap.get(DcMotorEx.class, "frontLeftMotor");
     frontRightWheel = hwMap.get(DcMotorEx.class, "frontRightWheel");
-//    ArmJoint = hwMap.get(DcMotorEx.class, "arm joint");
-    //   Arm = hwMap.get(DcMotorEx.class, "Arm");
     TopWheel = hwMap.get(DcMotorEx.class, "topwheelmotor");
-    //Claw = hwMap.get(CRServo.class, "claw");
+
 
     // Reverse one of the drive motors.
     frontRightWheel.setDirection(DcMotorEx.Direction.REVERSE);
-//    ArmJoint.setDirection(DcMotorEx.Direction.REVERSE);
 
 
     MotorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     MotorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     frontLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     frontRightWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    //   Arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//    ArmJoint.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
 
   }

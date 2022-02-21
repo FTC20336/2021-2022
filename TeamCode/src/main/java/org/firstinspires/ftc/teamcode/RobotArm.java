@@ -11,13 +11,9 @@ public class RobotArm {
     public DcMotorEx ArmJoint;
     public CRServo Claw;
 
-
-    static private double PI = 3.141592;
-    static private double CIRCUMFERENCE = 76 / 25.4 * PI;
     static private double GEAR_3_RATIO = 2.89;
     static private double GEAR_4_RATIO = 3.61;
     static private double GEAR_5_RATIO = 5.23;
-    static private double COUNTS_PER_IN_DRIVE = 28 * GEAR_3_RATIO * GEAR_4_RATIO * GEAR_3_RATIO / CIRCUMFERENCE;
 
     static double COUNT_PER_DEGREE_ARM = 28 * GEAR_3_RATIO * GEAR_4_RATIO * GEAR_5_RATIO * (125.0 / 30.0) * (90.0 / 45.0) / 360;
     static double COUNT_PER_DEGREE_ARMJOINT = 28 * GEAR_3_RATIO * GEAR_4_RATIO * GEAR_5_RATIO / 360;
@@ -30,6 +26,40 @@ public class RobotArm {
     public RobotArm() {
 
     }
+
+        public void ClawGrab(){
+        Claw.setPower(.25);
+        }
+
+        public void ArmSetPos(double angle, double speed, String status){
+            Arm.setTargetPosition( (int) (angle *COUNT_PER_DEGREE_ARM) );
+            Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            Arm.setVelocity(speed * COUNT_PER_DEGREE_ARM);
+        }
+
+        public void ArmJointSetPos(double angle, double speed, String status){
+            ArmJoint.setTargetPosition( (int) (angle * COUNT_PER_DEGREE_ARMJOINT) );
+            ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            ArmJoint.setVelocity(speed * COUNT_PER_DEGREE_ARMJOINT);
+
+        }
+
+        public void ClawOpen(){
+
+        }
+
+        public void ClawStop(){
+
+
+        }
+
+    public void ArmGetPosition(){}
+
+    public void ArmJointGetPosition(){}
+
+    public void ArmResetEncoder(){}
+
+    public void ArmJointResetEncoder(){}
 
     public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map
