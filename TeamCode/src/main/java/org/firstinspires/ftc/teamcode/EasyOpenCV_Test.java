@@ -495,7 +495,7 @@ public class EasyOpenCV_Test extends LinearOpMode
                 position = ElementPosition.CENTER; // Record our analysis
 
                 /*
-                 * Draw a solid rectangle on top of the chosen region.
+                 * Draws a solid rectangle on top of the chosen region.
                  * Simply a visual aid. Serves no functional purpose.
                  */
                 Imgproc.rectangle(
