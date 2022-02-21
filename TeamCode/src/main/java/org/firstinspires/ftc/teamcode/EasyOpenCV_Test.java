@@ -75,6 +75,7 @@ public class EasyOpenCV_Test extends LinearOpMode
          * Specify the image processing pipeline we wish to invoke upon receipt
          * of a frame from the camera. Note that switching pipelines on-the-fly
          * (while a streaming session is in flight) *IS* supported.
+         * Currently a test pipeline
          */
         webcam.setPipeline(new CustomElementPositionPipeline());
 
