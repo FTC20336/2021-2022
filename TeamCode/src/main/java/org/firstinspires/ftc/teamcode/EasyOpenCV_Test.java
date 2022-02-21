@@ -76,7 +76,7 @@ public class EasyOpenCV_Test extends LinearOpMode
          * of a frame from the camera. Note that switching pipelines on-the-fly
          * (while a streaming session is in flight) *IS* supported.
          */
-        webcam.setPipeline(new SamplePipeline());
+        webcam.setPipeline(new CustomElementPositionPipeline());
 
         /*
          * Open the connection to the camera device. New in v1.4.0 is the ability
