@@ -303,7 +303,7 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
          */
         waitForStart();
 
-        while (opModeIsActive())
+        /*while (opModeIsActive())
         {
             /*
              * Send some stats to the telemetry
@@ -314,6 +314,63 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
             telemetry.addData("Pipeline time ms", webcam.getPipelineTimeMs());
             telemetry.addData("Overhead time ms", webcam.getOverheadTimeMs());
             telemetry.addData("Theoretical max FPS", webcam.getCurrentPipelineMaxFps());*/
+            /*if (Element_Position == 1) {
+                telemetry.addData("Element Position", "Left");
+            }
+            if (Element_Position == 2) {
+                telemetry.addData("Element Position", "Center");
+            }
+            if (Element_Position == 3) {
+                telemetry.addData("Element Position", "Right");
+            }
+            telemetry.addData("Element Position Num", Element_Position);
+
+
+            telemetry.update();*/
+
+        /*
+         * NOTE: stopping the stream from the camera early (before the end of the OpMode
+         * when it will be automatically stopped for you) *IS* supported. The "if" statement
+         * below will stop streaming from the camera when the "A" button on gamepad 1 is pressed.
+         */
+        if(gamepad1.a)
+        {
+            /*
+             * IMPORTANT NOTE: calling stopStreaming() will indeed stop the stream of images
+             * from the camera (and, by extension, stop calling your vision pipeline). HOWEVER,
+             * if the reason you wish to stop the stream early is to switch use of the camera
+             * over to, say, Vuforia or TFOD, you will also need to call closeCameraDevice()
+             * (commented out below), because according to the Android Camera API documentation:
+             *         "Your application should only have one Camera object active at a time for
+             *          a particular hardware camera."
+             *
+             * NB: calling closeCameraDevice() will internally call stopStreaming() if applicable,
+             * but it doesn't hurt to call it anyway, if for no other reason than clarity.
+             *
+             * NB2: if you are stopping the camera stream to simply save some processing power
+             * (or battery power) for a short while when you do not need your vision pipeline,
+             * it is recommended to NOT call closeCameraDevice() as you will then need to re-open
+             * it the next time you wish to activate your vision pipeline, which can take a bit of
+             * time. Of course, this comment is irrelevant in light of the use case described in
+             * the above "important note".
+             */
+            webcam.stopStreaming();
+            //webcam.closeCameraDevice();
+        }
+
+        /*
+         * For the purposes of this sample, throttle ourselves to 10Hz loop to avoid burning
+         * excess CPU cycles for no reason. (By default, telemetry is only sent to the DS at 4Hz
+         * anyway). Of course in a real OpMode you will likely not want to do this.
+         */
+        //sleep(100);
+        //}
+
+
+        waitForStart();
+
+
+        if (opModeIsActive()) {
             if (Element_Position == 1) {
                 telemetry.addData("Element Position", "Left");
             }
@@ -323,64 +380,20 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
             if (Element_Position == 3) {
                 telemetry.addData("Element Position", "Right");
             }
-            telemetry.addData("ArmJointTargetPos", ArmJoint.getTargetPosition());
+            telemetry.addData("Element Position Num", Element_Position);
             telemetry.update();
-
-            /*
-             * NOTE: stopping the stream from the camera early (before the end of the OpMode
-             * when it will be automatically stopped for you) *IS* supported. The "if" statement
-             * below will stop streaming from the camera when the "A" button on gamepad 1 is pressed.
-             */
-            if(gamepad1.a)
-            {
-                /*
-                 * IMPORTANT NOTE: calling stopStreaming() will indeed stop the stream of images
-                 * from the camera (and, by extension, stop calling your vision pipeline). HOWEVER,
-                 * if the reason you wish to stop the stream early is to switch use of the camera
-                 * over to, say, Vuforia or TFOD, you will also need to call closeCameraDevice()
-                 * (commented out below), because according to the Android Camera API documentation:
-                 *         "Your application should only have one Camera object active at a time for
-                 *          a particular hardware camera."
-                 *
-                 * NB: calling closeCameraDevice() will internally call stopStreaming() if applicable,
-                 * but it doesn't hurt to call it anyway, if for no other reason than clarity.
-                 *
-                 * NB2: if you are stopping the camera stream to simply save some processing power
-                 * (or battery power) for a short while when you do not need your vision pipeline,
-                 * it is recommended to NOT call closeCameraDevice() as you will then need to re-open
-                 * it the next time you wish to activate your vision pipeline, which can take a bit of
-                 * time. Of course, this comment is irrelevant in light of the use case described in
-                 * the above "important note".
-                 */
-                webcam.stopStreaming();
-                //webcam.closeCameraDevice();
-            }
-
-            /*
-             * For the purposes of this sample, throttle ourselves to 10Hz loop to avoid burning
-             * excess CPU cycles for no reason. (By default, telemetry is only sent to the DS at 4Hz
-             * anyway). Of course in a real OpMode you will likely not want to do this.
-             */
-            sleep(100);
-        }
-
-
-        waitForStart();
-
-
-        if (opModeIsActive()) {
 
             // Grab Initial block
             Claw.setPower(-.2);sleep(1200);
             Arm.setTargetPosition((int)(40* COUNT_PER_DEGREE_ARM));
             Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             Arm.setVelocity(60*COUNT_PER_DEGREE_ARM );
-     /*
-      while (opModeIsActive() && Arm.isBusy() ){
-        telemetry.addData("Arm Be Move", Arm.getVelocity());
-        telemetry.update();
-      }
-    */
+             /*
+              while (opModeIsActive() && Arm.isBusy() ){
+                telemetry.addData("Arm Be Move", Arm.getVelocity());
+                telemetry.update();
+              }
+            */
             //Use variable Element_Position to determine arm height
             //MEASURE DISTANCES
             if (Element_Position == 1) {
@@ -391,27 +404,29 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
             }
             if (Element_Position == 2) {
                 //Middle Level
-                ArmJoint.setTargetPosition((int) (75 * COUNT_PER_DEGREE_ARMJOINT));
+                ArmJoint.setTargetPosition((int) (100 * COUNT_PER_DEGREE_ARMJOINT));
                 ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ArmJoint.setVelocity(45 * COUNT_PER_DEGREE_ARMJOINT);
             }
             if (Element_Position == 3) {
                 //Top Level
-                ArmJoint.setTargetPosition((int) (100 * COUNT_PER_DEGREE_ARMJOINT));
+                ArmJoint.setTargetPosition((int) (150 * COUNT_PER_DEGREE_ARMJOINT));
                 ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ArmJoint.setVelocity(45 * COUNT_PER_DEGREE_ARMJOINT);
             }
 
 
             // If we want to wait until the armjoint is done.. uncomment this
-     /*
-      while (opModeIsActive() && ArmJoint.isBusy() ){
-        telemetry.addData("Arm Joint Be Move", ArmJoint.getVelocity());
-        telemetry.update();
-      }
-      */
+            telemetry.addData("ArmJointTargetPos", ArmJoint.getTargetPosition());
 
-/*uncomment this
+            while (opModeIsActive() && ArmJoint.isBusy() ){
+                telemetry.addData("Arm Joint Be Move", ArmJoint.getVelocity());
+                telemetry.addData("ArmJointTargetPos", ArmJoint.getTargetPosition());
+                telemetry.update();
+            }
+
+
+            /*uncomment this
             move(10.5, 15, "Robot go forward");
             //Position 1
             strafe(28, 90, 15,"");
