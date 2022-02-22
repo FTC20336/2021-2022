@@ -44,14 +44,6 @@ public class RobotArm {
 
         }
 
-        public void ClawOpen(){
-
-        }
-
-        public void ClawStop(){
-
-
-        }
 
     public void ArmGetPosition(){}
 
