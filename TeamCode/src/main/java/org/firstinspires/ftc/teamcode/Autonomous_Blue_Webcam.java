@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import java.util.Stack;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -49,6 +50,7 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
     static double COUNT_PER_360_ROTATE_SPEED   = 25.5;
     OpenCvWebcam webcam;
     static int Element_Position;
+    static int detect;
 
 
 
@@ -252,6 +254,7 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
          */
         webcam.setPipeline(new CustomElementPositionPipeline());
 
+
         /*
          * Open the connection to the camera device. New in v1.4.0 is the ability
          * to open the camera asynchronously, and this is now the recommended way
@@ -284,6 +287,7 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
                  * away from the user.
                  */
                 webcam.startStreaming(1280, 960, OpenCvCameraRotation.UPRIGHT);
+
             }
 
             @Override
@@ -294,6 +298,7 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
                  */
             }
         });
+
 
         telemetry.addLine("Waiting for start");
         telemetry.update();
@@ -399,12 +404,16 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
                 ArmJoint.setTargetPosition((int) (110.28 * COUNT_PER_DEGREE_ARMJOINT));
                 ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ArmJoint.setVelocity(45 * COUNT_PER_DEGREE_ARMJOINT);
-                sleep(1000);
+                /*while (opModeIsActive() && ArmJoint.isBusy()){
+                    telemetry.addData("Armjoint Be Move", ArmJoint.getVelocity());
+                    telemetry.update();
+                }*/
+                sleep(5000);
+
                 //Lower Level
                 Arm.setTargetPosition((int)(-62.69* COUNT_PER_DEGREE_ARM));
                 Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 Arm.setVelocity(60*COUNT_PER_DEGREE_ARM );
-                telemetry.addData("Armjoint Be Move", ArmJoint.getVelocity());
                 telemetry.addData("Arm Be Move", Arm.getVelocity());
                 telemetry.update();
             }
@@ -697,6 +706,7 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
             {
                 position = EasyOpenCV_Test.CustomElementPositionPipeline.ElementPosition.LEFT; // Record our analysis
                 Element_Position = 1;
+                detect = 1;
 
                 /*
                  * Draw a solid rectangle on top of the chosen region.
@@ -708,11 +718,13 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
                         region1_pointB, // Second point which defines the rectangle
                         GREEN, // The color the rectangle is drawn in
                         -1); // Negative thickness means solid fill
+
             }
             else if(max == avg2) // Was it from region 2?
             {
                 position = EasyOpenCV_Test.CustomElementPositionPipeline.ElementPosition.CENTER; // Record our analysis
                 Element_Position = 2;
+                detect = 1;
                 /*
                  * Draws a solid rectangle on top of the chosen region.
                  * Simply a visual aid. Serves no functional purpose.
@@ -728,6 +740,7 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
             {
                 position = EasyOpenCV_Test.CustomElementPositionPipeline.ElementPosition.RIGHT; // Record our analysis
                 Element_Position = 3;
+                detect = 1;
 
                 /*
                  * Draw a solid rectangle on top of the chosen region.
@@ -739,6 +752,9 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
                         region3_pointB, // Second point which defines the rectangle
                         GREEN, // The color the rectangle is drawn in
                         -1); // Negative thickness means solid fill
+            }
+            if (Element_Position == 0){
+                detect=0;
             }
 
             /*
