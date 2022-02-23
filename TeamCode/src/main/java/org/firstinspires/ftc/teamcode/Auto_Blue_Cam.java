@@ -20,9 +20,9 @@ import org.opencv.core.Rect;
 
 
 
-@Autonomous(name="Autonomous Blue Position 1 Webcam", group="Pushbot")
+@Autonomous(name="Autonomous Blue Position 1 Webcam 2", group="Pushbot")
 
-public class Autonomous_Blue_Webcam extends LinearOpMode {
+public class Auto_Blue_Cam extends LinearOpMode {
 
 
     private DcMotorEx MotorRight;
@@ -395,18 +395,13 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
             //Use variable Element_Position to determine arm height
             //MEASURE DISTANCES
             if (Element_Position == 1) {
-
+                //Lower Level
+                Arm.setTargetPosition((int)(62.69* COUNT_PER_DEGREE_ARM));
+                Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                Arm.setVelocity(60*COUNT_PER_DEGREE_ARM );
                 ArmJoint.setTargetPosition((int) (110.28 * COUNT_PER_DEGREE_ARMJOINT));
                 ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ArmJoint.setVelocity(45 * COUNT_PER_DEGREE_ARMJOINT);
-                sleep(1000);
-                //Lower Level
-                Arm.setTargetPosition((int)(-62.69* COUNT_PER_DEGREE_ARM));
-                Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                Arm.setVelocity(60*COUNT_PER_DEGREE_ARM );
-                telemetry.addData("Armjoint Be Move", ArmJoint.getVelocity());
-                telemetry.addData("Arm Be Move", Arm.getVelocity());
-                telemetry.update();
             }
             if (Element_Position == 2) {
                 //Middle Level
@@ -508,9 +503,9 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
         static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(109,98);
         static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(181,98);
         static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(253,98);
-        static final Point REGION1_CENTER_ANCHOR_POINT = new Point(280,200);
-        static final Point REGION2_CENTER_ANCHOR_POINT = new Point(610,200);
-        static final Point REGION3_CENTER_ANCHOR_POINT = new Point(940,200);
+        static final Point REGION1_CENTER_ANCHOR_POINT = new Point(310,300);
+        static final Point REGION2_CENTER_ANCHOR_POINT = new Point(610,300);
+        static final Point REGION3_CENTER_ANCHOR_POINT = new Point(910,300);
         static final int REGION_WIDTH = 60;
         static final int REGION_HEIGHT = 60;
 
