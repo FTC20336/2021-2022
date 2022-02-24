@@ -27,32 +27,6 @@ public class RobotArm {
 
     }
 
-        public void ClawGrab(){
-        Claw.setPower(.25);
-        }
-
-        public void ArmSetPos(double angle, double speed, String status){
-            Arm.setTargetPosition( (int) (angle *COUNT_PER_DEGREE_ARM) );
-            Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            Arm.setVelocity(speed * COUNT_PER_DEGREE_ARM);
-        }
-
-        public void ArmJointSetPos(double angle, double speed, String status){
-            ArmJoint.setTargetPosition( (int) (angle * COUNT_PER_DEGREE_ARMJOINT) );
-            ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            ArmJoint.setVelocity(speed * COUNT_PER_DEGREE_ARMJOINT);
-
-        }
-
-
-    public void ArmGetPosition(){}
-
-    public void ArmJointGetPosition(){}
-
-    public void ArmResetEncoder(){}
-
-    public void ArmJointResetEncoder(){}
-
     public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map
         hwMap = ahwMap;
@@ -68,4 +42,29 @@ public class RobotArm {
         Arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ArmJoint.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
+
+    public void ClawGrab(){
+        Claw.setPower(.25);
+    }
+
+    public void ArmSetPos(double angle, double speed, String status){
+        Arm.setTargetPosition( (int) (angle *COUNT_PER_DEGREE_ARM) );
+        Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Arm.setVelocity(speed * COUNT_PER_DEGREE_ARM);
+    }
+
+    public void ArmJointSetPos(double angle, double speed, String status){
+        ArmJoint.setTargetPosition( (int) (angle * COUNT_PER_DEGREE_ARMJOINT) );
+        ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        ArmJoint.setVelocity(speed * COUNT_PER_DEGREE_ARMJOINT);
+
+    }
+
+    public void ArmGetPosition(){}
+
+    public void ArmJointGetPosition(){}
+
+    public void ArmResetEncoder(){}
+
+    public void ArmJointResetEncoder(){}
 }

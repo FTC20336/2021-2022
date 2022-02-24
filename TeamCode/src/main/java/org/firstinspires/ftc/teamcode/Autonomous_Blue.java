@@ -21,6 +21,7 @@ public class Autonomous_Blue extends LinearOpMode {
 
     //Initialize Robot Class
     Beep.init(hardwareMap);
+    Beep.BeepArm.init(hardwareMap);
 
     waitForStart();
 

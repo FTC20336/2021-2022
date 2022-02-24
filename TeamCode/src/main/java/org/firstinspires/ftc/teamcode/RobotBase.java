@@ -12,7 +12,7 @@ public class RobotBase {
   public DcMotorEx frontRightWheel;
   public DcMotorEx frontLeftMotor;
   public DcMotorEx TopWheel;
-  RobotArm BeepArm= new RobotArm();
+  public RobotArm BeepArm= new RobotArm();
 
   static private double PI = 3.141592;
   static private double CIRCUMFERENCE = 76 / 25.4 * PI;
@@ -175,6 +175,7 @@ public class RobotBase {
   /* Initialize standard Hardware interfaces */
   public void init(HardwareMap ahwMap) {
     // Save reference to Hardware map
+
     hwMap = ahwMap;
 
     // Define and Initialize Motors.  Assign Names that match the setup on the DriverHub
