@@ -21,7 +21,7 @@ import org.opencv.core.Rect;
 
 
 
-@Autonomous(name="Autonomous Blue Position 1 Webcam", group="Pushbot")
+@Autonomous(name="Autonomous Blue Position 1 Webcam", group="Blue Pos")
 
 public class Autonomous_Blue_Webcam extends LinearOpMode {
 
@@ -206,8 +206,8 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
     }
 
     public void UpdateData(){
-        telemetry.addData("ArmJointTargetPos", ArmJoint.getCurrentPosition());
-        telemetry.addData("ArmTargetPos", Arm.getCurrentPosition());
+        telemetry.addData("ArmJointTargetPos", ArmJoint.getCurrentPosition()/COUNT_PER_DEGREE_ARMJOINT);
+        telemetry.addData("ArmTargetPos", Arm.getCurrentPosition()/COUNT_PER_DEGREE_ARM);
         telemetry.update();
     }
     /**
@@ -468,7 +468,7 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
             Claw.setPower(0);
 
             //uncomment this
-            move(10.5, 15, "roboreverse");
+            move(12, 15, "roboreverse");
             //Move arm up a little
             //Arm.setTargetPosition((int)(-40* COUNT_PER_DEGREE_ARM));
             //Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -487,22 +487,18 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
 
             // Move back to Warehouse from Dropping the Duck
             //move(-6, 20, "roboreverse");
-            rotate(-90, 45, "TARGET LOCKED"); //sleep(2000);
+            rotate(-95, 45, "TARGET LOCKED"); //sleep(2000);
 
-            if (Element_Position ==1)
-            {
-                Arm.setTargetPosition((int)(0* COUNT_PER_DEGREE_ARMJOINT));
-                Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                Arm.setVelocity(100*COUNT_PER_DEGREE_ARMJOINT);
 
-            }else if (Element_Position ==2)
-            {
-                Arm.setTargetPosition((int)(0* COUNT_PER_DEGREE_ARMJOINT));
-                Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                Arm.setVelocity(100*COUNT_PER_DEGREE_ARMJOINT);
-            }
+            Arm.setTargetPosition((int)(25* COUNT_PER_DEGREE_ARM));
+            Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            Arm.setVelocity(100*COUNT_PER_DEGREE_ARM);
+            ArmJoint.setTargetPosition((int)(125* COUNT_PER_DEGREE_ARMJOINT));
+            ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            ArmJoint.setVelocity(100*COUNT_PER_DEGREE_ARMJOINT);
+
             UpdateData();
-            sleep(1500);
+            //sleep(1500);
             move(-60,999,"Robot go BRRRRRRRRRRR");
 
             // To Roll a Duck.. Uncomment this
