@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -28,7 +30,7 @@ public class RobotBase {
 
   // Local OpMode members
   HardwareMap hwMap = null;
-
+  LinearOpMode MyOp = null;
 
   // Constructor - leave this blank for now
   public RobotBase() {
@@ -56,7 +58,7 @@ public class RobotBase {
 
   // Distance in inches
   // Speed in inches/sec
-  public void move(double distance, double speed, String status) {
+  public void move(double distance, double speed, long timeout) {
     MotorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     MotorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     frontLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -78,22 +80,18 @@ public class RobotBase {
     MotorLeft.setTargetPosition((int) (distance * COUNTS_PER_IN_DRIVE));
     MotorLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     MotorLeft.setVelocity(COUNTS_PER_IN_DRIVE * speed);
-
-/*
-    while (opModeIsActive() &&
-            (MotorLeft.isBusy() || MotorRight.isBusy() || frontLeftMotor.isBusy() || frontRightWheel.isBusy())) {
-      telemetry.addData("Status", status);
-      telemetry.addData("Motor Left", MotorLeft.getCurrentPosition() - MotorLeft.getTargetPosition());
-      telemetry.addData("Motor Right", MotorRight.getCurrentPosition() - MotorRight.getTargetPosition());
-      telemetry.addData("Motor Front Right", frontRightWheel.getCurrentPosition() - frontRightWheel.getTargetPosition());
-      telemetry.addData("Motor Front Left", frontLeftMotor.getCurrentPosition() - frontLeftMotor.getTargetPosition());
-      telemetry.update();
-    }*/
+    if (timeout ==-1){
+      while (MyOp.opModeIsActive() && ( MotorLeft.isBusy() || MotorRight.isBusy() || frontLeftMotor.isBusy() || frontRightWheel.isBusy()))
+      {}
+    }
+    else {
+      MyOp.sleep(timeout);
+    }
   }
 
   // Rotate around center of Robot
   // Degrees and degrees per sec
-  public void rotate(double angle, double speed, String status) {
+  public void rotate(double angle, double speed, long timeout) {
 
     MotorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     MotorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -115,20 +113,18 @@ public class RobotBase {
     frontLeftMotor.setTargetPosition((int) ((-angle / 360) * COUNT_PER_360_ROTATE));
     frontLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     frontLeftMotor.setVelocity(speed * COUNT_PER_360_ROTATE_SPEED);
-
-/*
-    while (opModeIsActive() &&
-            (MotorLeft.isBusy() || MotorRight.isBusy() || frontLeftMotor.isBusy() || frontRightWheel.isBusy())) {
-      telemetry.addData("Status", status);
-      telemetry.addData("Diff", frontRightWheel.getCurrentPosition() - frontRightWheel.getTargetPosition());
-      telemetry.update();
-
-    }*/
+    if (timeout ==-1){
+      while (MyOp.opModeIsActive() && ( MotorLeft.isBusy() || MotorRight.isBusy() || frontLeftMotor.isBusy() || frontRightWheel.isBusy()))
+      {}
+    }
+    else {
+      MyOp.sleep(timeout);
+    }
 
   }
 
 
-  public void strafe(double distance, double angle, double speed, String status) {
+  public void strafe(double distance, double angle, double speed, long timeout) {
 
 
     MotorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -155,16 +151,14 @@ public class RobotBase {
     frontLeftMotor.setVelocity((y + x) * COUNTS_PER_IN_DRIVE);
     frontRightWheel.setVelocity((y - x) * COUNTS_PER_IN_DRIVE);
     MotorLeft.setVelocity((y - x) * COUNTS_PER_IN_DRIVE);
-/*
-    while (opModeIsActive() &&
-            (MotorLeft.isBusy() || MotorRight.isBusy() || frontLeftMotor.isBusy() || frontRightWheel.isBusy())) {
-      telemetry.addData("Status", status);
-      telemetry.addData("Motor Left", MotorLeft.getCurrentPosition() - MotorLeft.getTargetPosition());
-      telemetry.addData("Motor Right", MotorRight.getCurrentPosition() - MotorRight.getTargetPosition());
-      telemetry.addData("Motor Front Right", frontRightWheel.getCurrentPosition() - frontRightWheel.getTargetPosition());
-      telemetry.addData("Motor Front Left", frontLeftMotor.getCurrentPosition() - frontLeftMotor.getTargetPosition());
-      telemetry.update();
-    }*/
+
+    if (timeout ==-1){
+      while (MyOp.opModeIsActive() && ( MotorLeft.isBusy() || MotorRight.isBusy() || frontLeftMotor.isBusy() || frontRightWheel.isBusy()))
+      {}
+    }
+    else {
+      MyOp.sleep(timeout);
+    }
 
 
   }
@@ -173,10 +167,12 @@ public class RobotBase {
    *
    */
   /* Initialize standard Hardware interfaces */
-  public void init(HardwareMap ahwMap) {
+  public void init(HardwareMap ahwMap, LinearOpMode MyOpin) {
     // Save reference to Hardware map
 
+    BeepArm.init(ahwMap, MyOpin);
     hwMap = ahwMap;
+    MyOp = MyOpin;
 
     // Define and Initialize Motors.  Assign Names that match the setup on the DriverHub
 
@@ -188,8 +184,10 @@ public class RobotBase {
 
 
     // Reverse one of the drive motors.
-    frontRightWheel.setDirection(DcMotorEx.Direction.REVERSE);
-
+    frontRightWheel.setDirection(DcMotorEx.Direction.FORWARD);
+    frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+    MotorRight.setDirection(DcMotorSimple.Direction.REVERSE);
+    MotorLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
     MotorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     MotorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

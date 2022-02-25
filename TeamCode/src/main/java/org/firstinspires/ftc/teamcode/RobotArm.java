@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -21,34 +24,57 @@ public class RobotArm {
     // Local OpMode members
     HardwareMap hwMap = null;
 
+    LinearOpMode MyOp = null;
+
 
     // Constructor - leave this blank for now
     public RobotArm() {
 
     }
     // Negative Value Closes the Claw
-    public void ClawGrab(){
+    public void ClawGrab(long timeout)
+    {
         Claw.setPower(-.25);
+        if (timeout >= 0)
+            MyOp.sleep(timeout);
     }
-    public void ClawOpen(){
-        Claw.setPower(1);
+    public void ClawOpen(long timeout){
+
+        if (timeout >= 0)
+            MyOp.sleep(timeout);
     }
-    public void ClawStop(){
+    public void ClawStop( long timeout){
         Claw.setPower(0);
+        if (timeout >= 0)
+            MyOp.sleep(timeout);
     }
 
 
-    public void ArmSetPos(double angle, double speed, String status){
+    public void ArmSetPos(double angle, double speed, long timeout){
         Arm.setTargetPosition( (int) (angle *COUNT_PER_DEGREE_ARM) );
         Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Arm.setVelocity(speed * COUNT_PER_DEGREE_ARM);
+        if (timeout ==-1){
+            while (MyOp.opModeIsActive() && Arm.isBusy())
+            {}
+        }
+        else {
+            MyOp.sleep(timeout);
+        }
+
     }
 
-    public void ArmJointSetPos(double angle, double speed, String status){
+    public void ArmJointSetPos(double angle, double speed, long timeout){
         ArmJoint.setTargetPosition( (int) (angle * COUNT_PER_DEGREE_ARMJOINT) );
         ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         ArmJoint.setVelocity(speed * COUNT_PER_DEGREE_ARMJOINT);
-
+        if (timeout ==-1){
+            while (MyOp.opModeIsActive() && Arm.isBusy())
+            {}
+        }
+        else {
+            MyOp.sleep(timeout);
+        }
     }
 
 
@@ -60,10 +86,10 @@ public class RobotArm {
 
     public void ArmJointResetEncoder(){}
 
-    public void init(HardwareMap ahwMap) {
+    public void init(HardwareMap ahwMap, LinearOpMode MyOpin) {
         // Save reference to Hardware map
         hwMap = ahwMap;
-
+        MyOp = MyOpin;
 
         ArmJoint = hwMap.get(DcMotorEx.class, "arm joint");
         Arm = hwMap.get(DcMotorEx.class, "arm");
