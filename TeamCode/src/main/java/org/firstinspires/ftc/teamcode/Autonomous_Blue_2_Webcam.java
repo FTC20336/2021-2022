@@ -21,7 +21,7 @@ import org.opencv.core.Rect;
 
 
 
-@Autonomous(name="Autonomous Blue Position 2 Webcam", group="Pushbot")
+@Autonomous(name="Autonomous Blue Position 1 Webcam", group="Pushbot")
 
 public class Autonomous_Blue_2_Webcam extends LinearOpMode {
 
@@ -205,6 +205,11 @@ public class Autonomous_Blue_2_Webcam extends LinearOpMode {
 
     }
 
+    public void UpdateData(){
+        telemetry.addData("ArmJointTargetPos", ArmJoint.getCurrentPosition());
+        telemetry.addData("ArmTargetPos", Arm.getCurrentPosition());
+        telemetry.update();
+    }
     /**
      * This function is executed when this Op Mode is selected from the Driver Station.
      */
@@ -389,7 +394,7 @@ public class Autonomous_Blue_2_Webcam extends LinearOpMode {
             }
             telemetry.addData("Element Position Num", Element_Position);
             telemetry.update();
-
+            UpdateData();
             // Grab Initial block
             Claw.setPower(-.2);sleep(1200);
 
@@ -399,6 +404,7 @@ public class Autonomous_Blue_2_Webcam extends LinearOpMode {
                 telemetry.update();
               }
             */
+
             //Use variable Element_Position to determine arm height
             //MEASURE DISTANCES
             if (Element_Position == 1) {
@@ -423,11 +429,11 @@ public class Autonomous_Blue_2_Webcam extends LinearOpMode {
             }
             else if (Element_Position == 2) {
                 //Middle Level
-                ArmJoint.setTargetPosition((int) (68.15 * COUNT_PER_DEGREE_ARMJOINT));
+                ArmJoint.setTargetPosition((int) (58.15 * COUNT_PER_DEGREE_ARMJOINT));
                 ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ArmJoint.setVelocity(45 * COUNT_PER_DEGREE_ARMJOINT);
                 sleep(3000);
-                Arm.setTargetPosition((int)(5.12* COUNT_PER_DEGREE_ARM));
+                Arm.setTargetPosition((int)(0* COUNT_PER_DEGREE_ARM));
                 Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 Arm.setVelocity(60*COUNT_PER_DEGREE_ARM );
 
@@ -448,7 +454,7 @@ public class Autonomous_Blue_2_Webcam extends LinearOpMode {
                 strafe(-28, -55, 15,"");
             }
 
-
+            UpdateData();
             // If we want to wait until the armjoint is done.. uncomment this
             telemetry.addData("ArmJointTargetPos", ArmJoint.getTargetPosition());
 
@@ -482,7 +488,23 @@ public class Autonomous_Blue_2_Webcam extends LinearOpMode {
             // Move back to Warehouse from Dropping the Duck
             //move(-6, 20, "roboreverse");
             rotate(-90, 45, "TARGET LOCKED"); //sleep(2000);
+
+            if (Element_Position ==1)
+            {
+                Arm.setTargetPosition((int)(0* COUNT_PER_DEGREE_ARMJOINT));
+                Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                Arm.setVelocity(100*COUNT_PER_DEGREE_ARMJOINT);
+
+            }else if (Element_Position ==2)
+            {
+                Arm.setTargetPosition((int)(0* COUNT_PER_DEGREE_ARMJOINT));
+                Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                Arm.setVelocity(100*COUNT_PER_DEGREE_ARMJOINT);
+            }
+            UpdateData();
+            sleep(1500);
             move(-60,999,"Robot go BRRRRRRRRRRR");
+
             // To Roll a Duck.. Uncomment this
    /*
       move(-4, 20, "roboreverse");

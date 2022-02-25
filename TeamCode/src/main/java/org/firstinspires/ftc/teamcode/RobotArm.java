@@ -26,26 +26,17 @@ public class RobotArm {
     public RobotArm() {
 
     }
-
-    public void init(HardwareMap ahwMap) {
-        // Save reference to Hardware map
-        hwMap = ahwMap;
-
-
-        ArmJoint = hwMap.get(DcMotorEx.class, "arm joint");
-        Arm = hwMap.get(DcMotorEx.class, "Arm");
-        Claw = hwMap.get(CRServo.class, "claw");
-
-        // Reverse one of the drive motors.
-        ArmJoint.setDirection(DcMotorEx.Direction.REVERSE);
-
-        Arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ArmJoint.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    }
-
+    // Negative Value Closes the Claw
     public void ClawGrab(){
-        Claw.setPower(.25);
+        Claw.setPower(-.25);
     }
+    public void ClawOpen(){
+        Claw.setPower(1);
+    }
+    public void ClawStop(){
+        Claw.setPower(0);
+    }
+
 
     public void ArmSetPos(double angle, double speed, String status){
         Arm.setTargetPosition( (int) (angle *COUNT_PER_DEGREE_ARM) );
@@ -60,6 +51,7 @@ public class RobotArm {
 
     }
 
+
     public void ArmGetPosition(){}
 
     public void ArmJointGetPosition(){}
@@ -67,4 +59,20 @@ public class RobotArm {
     public void ArmResetEncoder(){}
 
     public void ArmJointResetEncoder(){}
+
+    public void init(HardwareMap ahwMap) {
+        // Save reference to Hardware map
+        hwMap = ahwMap;
+
+
+        ArmJoint = hwMap.get(DcMotorEx.class, "arm joint");
+        Arm = hwMap.get(DcMotorEx.class, "arm");
+        Claw = hwMap.get(CRServo.class, "claw");
+
+        // Reverse one of the drive motors.
+        ArmJoint.setDirection(DcMotorEx.Direction.REVERSE);
+
+        Arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ArmJoint.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
 }
