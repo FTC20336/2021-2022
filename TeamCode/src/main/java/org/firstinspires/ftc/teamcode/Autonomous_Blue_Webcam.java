@@ -431,11 +431,11 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
                 //Middle Level
                 ArmJoint.setTargetPosition((int) (58.15 * COUNT_PER_DEGREE_ARMJOINT));
                 ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                ArmJoint.setVelocity(45 * COUNT_PER_DEGREE_ARMJOINT);
+                ArmJoint.setVelocity(100 * COUNT_PER_DEGREE_ARMJOINT);
                 sleep(3000);
                 Arm.setTargetPosition((int)(0* COUNT_PER_DEGREE_ARM));
                 Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                Arm.setVelocity(60*COUNT_PER_DEGREE_ARM );
+                Arm.setVelocity(100*COUNT_PER_DEGREE_ARM );
 
 
                 strafe(-27, 55, 15,"");
@@ -444,21 +444,21 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
                 //Top Level
                 ArmJoint.setTargetPosition((int) (63.15 * COUNT_PER_DEGREE_ARMJOINT));
                 ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                ArmJoint.setVelocity(45 * COUNT_PER_DEGREE_ARMJOINT);
-                sleep(3000);
+                ArmJoint.setVelocity(100 * COUNT_PER_DEGREE_ARMJOINT);
+                sleep(2000);
 
                 Arm.setTargetPosition((int)(15.38* COUNT_PER_DEGREE_ARM));
                 Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                Arm.setVelocity(60*COUNT_PER_DEGREE_ARM );
+                Arm.setVelocity(75*COUNT_PER_DEGREE_ARM );
 
-                strafe(-28, 55, 15,"");
+                strafe(-29, 50, 15,"");
             }
 
             UpdateData();
             // If we want to wait until the armjoint is done.. uncomment this
             telemetry.addData("ArmJointTargetPos", ArmJoint.getTargetPosition());
 
-            while (opModeIsActive() && ArmJoint.isBusy() ){
+            while (opModeIsActive() && Arm.isBusy() ){
                 telemetry.addData("Arm Joint Be Move", ArmJoint.getVelocity());
                 telemetry.addData("ArmJointTargetPos", ArmJoint.getTargetPosition());
                 telemetry.update();
@@ -467,26 +467,17 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
             Claw.setPower(1); sleep(750);
             Claw.setPower(0);
 
-            //uncomment this
-            move(12, 15, "roboreverse");
-            //Move arm up a little
-            //Arm.setTargetPosition((int)(-40* COUNT_PER_DEGREE_ARM));
-            //Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //Arm.setVelocity(100*COUNT_PER_DEGREE_ARM );
-            //Position 1
-     /*
-            move(11.5,20,"robot go forward");
+            //Going Back from Dropping the Block
+            if (Element_Position ==1){
+                move(12, 15, "roboreverse");
+            }
+            else if (Element_Position ==2){
+                move(16, 15, "roboreverse");
+            }
+            else{
+                move(19, 15, "roboreverse");
+            }
 
-            //Drop the block on the top level
-            Claw.setPower(1); sleep(200);
-            Claw.setPower(0);
-
-            ArmJoint.setTargetPosition((int)(60* COUNT_PER_DEGREE_ARMJOINT));
-            ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            ArmJoint.setVelocity(45*COUNT_PER_DEGREE_ARMJOINT);*/
-
-            // Move back to Warehouse from Dropping the Duck
-            //move(-6, 20, "roboreverse");
             rotate(-95, 45, "TARGET LOCKED"); //sleep(2000);
 
 
@@ -499,7 +490,7 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
 
             UpdateData();
             //sleep(1500);
-            move(-60,999,"Robot go BRRRRRRRRRRR");
+            move(-66,9999,"Robot go BRRRRRRRRRRR");
 
             // To Roll a Duck.. Uncomment this
    /*
@@ -555,11 +546,11 @@ public class Autonomous_Blue_Webcam extends LinearOpMode {
         static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(109,98);
         static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(181,98);
         static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(253,98);
-        static final Point REGION1_CENTER_ANCHOR_POINT = new Point(0,200);
+        static final Point REGION1_CENTER_ANCHOR_POINT = new Point(100,200);
         static final Point REGION2_CENTER_ANCHOR_POINT = new Point(610,200);
-        static final Point REGION3_CENTER_ANCHOR_POINT = new Point(1200,200);
-        static final int REGION_WIDTH = 60;
-        static final int REGION_HEIGHT = 60;
+        static final Point REGION3_CENTER_ANCHOR_POINT = new Point(1100,200);
+        static final int REGION_WIDTH = 80;
+        static final int REGION_HEIGHT = 80;
 
         /*
          * Points which actually define the sample region rectangles, derived from above values

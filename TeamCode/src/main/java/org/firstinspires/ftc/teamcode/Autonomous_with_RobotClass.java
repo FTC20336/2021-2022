@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.RobotBase;
 
 @Autonomous(name="Autonomous with RobotClass", group="Auto Blue")
-
+@Disabled
 public class Autonomous_with_RobotClass extends LinearOpMode {
 
     //Create New Robot based on RobotBase
@@ -29,21 +30,22 @@ public class Autonomous_with_RobotClass extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Grab Initial block
-            Beep.BeepArm.ClawGrab(-1);
-            sleep(1200);
+            //Beep.BeepArm.ClawGrab(1200);
 
-            Beep.BeepArm.ArmSetPos(40,60, -1);
-            Beep.BeepArm.ArmJointSetPos(50,45,-1);
+
+            // Beep.BeepArm.ArmSetPos(40,60, -1000);
+            //Beep.BeepArm.ArmJointSetPos(50,45,0);
 
             Beep.move(10.5,15,-1);
             //Position 1
-            Beep.strafe(28, 90, 15,-1);
-            Beep.move(11.5,20,-1);
+            Beep.strafe(28, 90, 15,-6000);
+            Beep.rotate(360,90,0);
+            //  Beep.move(11.5,20,-1);
 
             //Drop the block on the top level
-            Beep.BeepArm.ClawOpen(200);
-            Beep.BeepArm.ClawStop(-1);
-
+            //   Beep.BeepArm.ClawOpen(200);
+            //   Beep.BeepArm.ClawStop(0);
+/*
 
             // Move armjoint up a little to clear anything in the way
             Beep.BeepArm.ArmJointSetPos(60,45,-1);
@@ -80,6 +82,8 @@ public class Autonomous_with_RobotClass extends LinearOpMode {
             // Set Arm and ArmJoint Position to Known position so TeleOp Mode can use Encoders correctly
             Beep.BeepArm.ArmJointSetPos(0,60,500);
             Beep.BeepArm.ArmSetPos(0,60,-1);
+
+            */
         }
     }
 }

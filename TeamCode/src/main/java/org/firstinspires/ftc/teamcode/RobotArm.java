@@ -54,12 +54,12 @@ public class RobotArm {
         Arm.setTargetPosition( (int) (angle *COUNT_PER_DEGREE_ARM) );
         Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Arm.setVelocity(speed * COUNT_PER_DEGREE_ARM);
-        if (timeout ==-1){
+
+        if (timeout < 0 ){
             while (MyOp.opModeIsActive() && Arm.isBusy())
             {}
-        }
-        else {
-            MyOp.sleep(timeout);
+
+            MyOp.sleep(Math.abs(timeout));
         }
 
     }
@@ -68,12 +68,12 @@ public class RobotArm {
         ArmJoint.setTargetPosition( (int) (angle * COUNT_PER_DEGREE_ARMJOINT) );
         ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         ArmJoint.setVelocity(speed * COUNT_PER_DEGREE_ARMJOINT);
-        if (timeout ==-1){
+        if (timeout < 0 ){
             while (MyOp.opModeIsActive() && Arm.isBusy())
             {}
         }
         else {
-            MyOp.sleep(timeout);
+            MyOp.sleep(Math.abs(timeout));
         }
     }
 

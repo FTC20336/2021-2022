@@ -21,9 +21,9 @@ import org.opencv.core.Rect;
 
 
 
-@Autonomous(name="Autonomous Blue Position 2 Webcam", group="Blue Pos")
+@Autonomous(name="Autonomous Red Position 1 Webcam", group="Red Pos")
 
-public class Autonomous_Blue_2_Webcam extends LinearOpMode {
+public class Autonomous_Red_Webcam extends LinearOpMode {
 
 
     private DcMotorEx MotorRight;
@@ -412,55 +412,53 @@ public class Autonomous_Blue_2_Webcam extends LinearOpMode {
                 ArmJoint.setTargetPosition((int) (127 * COUNT_PER_DEGREE_ARMJOINT));
                 ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ArmJoint.setVelocity(100 * COUNT_PER_DEGREE_ARMJOINT);
+                /*while (opModeIsActive() && ArmJoint.isBusy()){
+                    telemetry.addData("Armjoint Be Move", ArmJoint.getVelocity());
+                    telemetry.update();
+                }*/
+                sleep(3000);
 
                 //Lower Level
-                sleep(500);
-                telemetry.addData("Arm Be Move", Arm.getVelocity());
-                telemetry.update();
-                strafe(-24, -90, 15,"");
                 Arm.setTargetPosition((int)(-70* COUNT_PER_DEGREE_ARM));
                 Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 Arm.setVelocity(100*COUNT_PER_DEGREE_ARM );
-                sleep(2000);
-                move(-13,20,"");
+                telemetry.addData("Arm Be Move", Arm.getVelocity());
+                telemetry.update();
+                strafe(-25, -55, 15,"");
 
             }
             else if (Element_Position == 2) {
                 //Middle Level
-
-                Arm.setTargetPosition((int)(0* COUNT_PER_DEGREE_ARM));
-                Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                Arm.setVelocity(75*COUNT_PER_DEGREE_ARM );
-                sleep(500);
                 ArmJoint.setTargetPosition((int) (58.15 * COUNT_PER_DEGREE_ARMJOINT));
                 ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                ArmJoint.setVelocity(75 * COUNT_PER_DEGREE_ARMJOINT);
-                strafe(-26, -90, 15,"");
-                move(-15,20,"");
+                ArmJoint.setVelocity(100 * COUNT_PER_DEGREE_ARMJOINT);
+                sleep(3000);
+                Arm.setTargetPosition((int)(0* COUNT_PER_DEGREE_ARM));
+                Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                Arm.setVelocity(100*COUNT_PER_DEGREE_ARM );
+
+
+                strafe(-27, -55, 15,"");
             }
             else {
                 //Top Level
-
+                ArmJoint.setTargetPosition((int) (63.15 * COUNT_PER_DEGREE_ARMJOINT));
+                ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                ArmJoint.setVelocity(100 * COUNT_PER_DEGREE_ARMJOINT);
+                sleep(2000);
 
                 Arm.setTargetPosition((int)(15.38* COUNT_PER_DEGREE_ARM));
                 Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 Arm.setVelocity(75*COUNT_PER_DEGREE_ARM );
-                sleep(500);
-                strafe(-27, -90, 15,"");
 
-                ArmJoint.setTargetPosition((int) (63.15 * COUNT_PER_DEGREE_ARMJOINT));
-                ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                ArmJoint.setVelocity(60 * COUNT_PER_DEGREE_ARMJOINT);
-                sleep(1500);
-
-                move(-17,20,"");
+                strafe(-29, -50, 15,"");
             }
 
             UpdateData();
             // If we want to wait until the armjoint is done.. uncomment this
             telemetry.addData("ArmJointTargetPos", ArmJoint.getTargetPosition());
 
-            while (opModeIsActive() && ArmJoint.isBusy() ){
+            while (opModeIsActive() && Arm.isBusy() ){
                 telemetry.addData("Arm Joint Be Move", ArmJoint.getVelocity());
                 telemetry.addData("ArmJointTargetPos", ArmJoint.getTargetPosition());
                 telemetry.update();
@@ -469,36 +467,50 @@ public class Autonomous_Blue_2_Webcam extends LinearOpMode {
             Claw.setPower(1); sleep(750);
             Claw.setPower(0);
 
-            //uncomment this
+            //Going Back from Dropping the Block
+            if (Element_Position ==1){
+                move(12, 15, "roboreverse");
+            }
+            else if (Element_Position ==2){
+                move(16, 15, "roboreverse");
+            }
+            else{
+                move(19, 15, "roboreverse");
+            }
 
-            move(6, 25, "roboreverse");
-            Arm.setTargetPosition((int)(45* COUNT_PER_DEGREE_ARM));
+            rotate(95, 45, "TARGET LOCKED"); //sleep(2000);
+
+
+            Arm.setTargetPosition((int)(25* COUNT_PER_DEGREE_ARM));
             Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            Arm.setVelocity(75*COUNT_PER_DEGREE_ARM );
-            ArmJoint.setTargetPosition((int)(50* COUNT_PER_DEGREE_ARMJOINT));
+            Arm.setVelocity(100*COUNT_PER_DEGREE_ARM);
+            ArmJoint.setTargetPosition((int)(125* COUNT_PER_DEGREE_ARMJOINT));
             ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            ArmJoint.setVelocity(75*COUNT_PER_DEGREE_ARMJOINT );
+            ArmJoint.setVelocity(100*COUNT_PER_DEGREE_ARMJOINT);
 
+            UpdateData();
+            //sleep(1500);
+            move(-66,9999,"Robot go BRRRRRRRRRRR");
 
             // To Roll a Duck.. Uncomment this
+   /*
+      move(-4, 20, "roboreverse");
+      rotate(180, 45, "TARGET LOCKED");
+     //Start from Po1
+      strafe (65,-90,20,"");
+      strafe (2,-90,10,"");
+      move(10, 5, "roboreverse");
+      TopWheel.setPower (.5);sleep(2500);
+      TopWheel.setPower (0);
+     */
 
-
-            rotate(180, 45, "TARGET LOCKED");
-            //Start from Po1
-            strafe (61,90,20,"");
-            strafe (2,90,10,"");
-            move(-3, 5, "roboreverse");
-            TopWheel.setPower (.5);sleep(2500);
-            TopWheel.setPower (0);
-
-
-
-            // To part in the small parking.. Uncomment this and comment next block
-            move(18,20,"Robot go BRRRRRRRRR");
-            Arm.setTargetPosition((int)(70* COUNT_PER_DEGREE_ARM));
-            Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            Arm.setVelocity(60*COUNT_PER_DEGREE_ARM );
-
+     /*
+      // To part in the small parking.. Uncomment this and comment next block
+      move(-18,20,"Robot go BRRRRRRRRR");
+      Arm.setTargetPosition((int)(70* COUNT_PER_DEGREE_ARM));
+      Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+      Arm.setVelocity(60*COUNT_PER_DEGREE_ARM );
+      */
       /*
       // Go to Warehouse
       strafe (20,90,15,"");

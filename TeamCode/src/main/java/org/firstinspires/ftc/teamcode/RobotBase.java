@@ -80,13 +80,13 @@ public class RobotBase {
     MotorLeft.setTargetPosition((int) (distance * COUNTS_PER_IN_DRIVE));
     MotorLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     MotorLeft.setVelocity(COUNTS_PER_IN_DRIVE * speed);
-    if (timeout ==-1){
-      while (MyOp.opModeIsActive() && ( MotorLeft.isBusy() || MotorRight.isBusy() || frontLeftMotor.isBusy() || frontRightWheel.isBusy()))
-      {}
-    }
-    else {
-      MyOp.sleep(timeout);
-    }
+
+
+    while (MyOp.opModeIsActive() && ( MotorLeft.isBusy() || MotorRight.isBusy() || frontLeftMotor.isBusy() || frontRightWheel.isBusy()))
+    {}
+
+    MyOp.sleep(Math.abs(timeout));
+
   }
 
   // Rotate around center of Robot
@@ -113,13 +113,12 @@ public class RobotBase {
     frontLeftMotor.setTargetPosition((int) ((-angle / 360) * COUNT_PER_360_ROTATE));
     frontLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     frontLeftMotor.setVelocity(speed * COUNT_PER_360_ROTATE_SPEED);
-    if (timeout ==-1){
-      while (MyOp.opModeIsActive() && ( MotorLeft.isBusy() || MotorRight.isBusy() || frontLeftMotor.isBusy() || frontRightWheel.isBusy()))
-      {}
-    }
-    else {
-      MyOp.sleep(timeout);
-    }
+
+    while (MyOp.opModeIsActive() && ( MotorLeft.isBusy() || MotorRight.isBusy() || frontLeftMotor.isBusy() || frontRightWheel.isBusy()))
+    {}
+
+    MyOp.sleep(Math.abs(timeout));
+
 
   }
 
@@ -152,13 +151,12 @@ public class RobotBase {
     frontRightWheel.setVelocity((y - x) * COUNTS_PER_IN_DRIVE);
     MotorLeft.setVelocity((y - x) * COUNTS_PER_IN_DRIVE);
 
-    if (timeout ==-1){
-      while (MyOp.opModeIsActive() && ( MotorLeft.isBusy() || MotorRight.isBusy() || frontLeftMotor.isBusy() || frontRightWheel.isBusy()))
-      {}
-    }
-    else {
-      MyOp.sleep(timeout);
-    }
+
+    while (MyOp.opModeIsActive() && ( MotorLeft.isBusy() || MotorRight.isBusy() || frontLeftMotor.isBusy() || frontRightWheel.isBusy()))
+    {}
+
+    MyOp.sleep(Math.abs(timeout));
+
 
 
   }

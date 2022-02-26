@@ -21,9 +21,9 @@ import org.opencv.core.Rect;
 
 
 
-@Autonomous(name="Autonomous Blue Position 2 Webcam", group="Blue Pos")
+@Autonomous(name="Autonomous Red Position 2 Webcam", group="Red Pos")
 
-public class Autonomous_Blue_2_Webcam extends LinearOpMode {
+public class Autonomous_Red_2_Webcam extends LinearOpMode {
 
 
     private DcMotorEx MotorRight;
@@ -417,7 +417,7 @@ public class Autonomous_Blue_2_Webcam extends LinearOpMode {
                 sleep(500);
                 telemetry.addData("Arm Be Move", Arm.getVelocity());
                 telemetry.update();
-                strafe(-24, -90, 15,"");
+                strafe(-24, 90, 15,"");
                 Arm.setTargetPosition((int)(-70* COUNT_PER_DEGREE_ARM));
                 Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 Arm.setVelocity(100*COUNT_PER_DEGREE_ARM );
@@ -435,7 +435,7 @@ public class Autonomous_Blue_2_Webcam extends LinearOpMode {
                 ArmJoint.setTargetPosition((int) (58.15 * COUNT_PER_DEGREE_ARMJOINT));
                 ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ArmJoint.setVelocity(75 * COUNT_PER_DEGREE_ARMJOINT);
-                strafe(-26, -90, 15,"");
+                strafe(-26, 90, 15,"");
                 move(-15,20,"");
             }
             else {
@@ -446,14 +446,14 @@ public class Autonomous_Blue_2_Webcam extends LinearOpMode {
                 Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 Arm.setVelocity(75*COUNT_PER_DEGREE_ARM );
                 sleep(500);
-                strafe(-27, -90, 15,"");
+                strafe(-27, 90, 15,"");
 
                 ArmJoint.setTargetPosition((int) (63.15 * COUNT_PER_DEGREE_ARMJOINT));
                 ArmJoint.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ArmJoint.setVelocity(60 * COUNT_PER_DEGREE_ARMJOINT);
                 sleep(1500);
 
-                move(-17,20,"");
+                move(-18,20,"");
             }
 
             UpdateData();
@@ -471,7 +471,7 @@ public class Autonomous_Blue_2_Webcam extends LinearOpMode {
 
             //uncomment this
 
-            move(6, 25, "roboreverse");
+            move(10, 25, "roboreverse");
             Arm.setTargetPosition((int)(45* COUNT_PER_DEGREE_ARM));
             Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             Arm.setVelocity(75*COUNT_PER_DEGREE_ARM );
@@ -482,29 +482,29 @@ public class Autonomous_Blue_2_Webcam extends LinearOpMode {
 
             // To Roll a Duck.. Uncomment this
 
-
-            rotate(180, 45, "TARGET LOCKED");
-            //Start from Po1
-            strafe (61,90,20,"");
-            strafe (2,90,10,"");
-            move(-3, 5, "roboreverse");
-            TopWheel.setPower (.5);sleep(2500);
-            TopWheel.setPower (0);
-
+/*
+      rotate(180, 45, "TARGET LOCKED");
+     //Start from Po1
+      strafe (61,90,20,"");
+      strafe (2,90,10,"");
+      move(-3, 5, "roboreverse");
+      TopWheel.setPower (.5);sleep(2500);
+      TopWheel.setPower (0);
+   */
 
 
             // To part in the small parking.. Uncomment this and comment next block
-            move(18,20,"Robot go BRRRRRRRRR");
+            //  move(18,20,"Robot go BRRRRRRRRR");
             Arm.setTargetPosition((int)(70* COUNT_PER_DEGREE_ARM));
             Arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             Arm.setVelocity(60*COUNT_PER_DEGREE_ARM );
 
-      /*
-      // Go to Warehouse
-      strafe (20,90,15,"");
-      rotate(-105, 45, "TARGET LOCKED"); //sleep(2000);
-      move(100,100,"Robot go BRRRRRRRRR");
-*/
+
+            // Go to Warehouse
+            //  strafe (20,90,15,"");
+            rotate(105, 45, "TARGET LOCKED"); //sleep(2000);
+            move(-60,9999,"Robot go BRRRRRRRRR");
+
         }
     }
 
